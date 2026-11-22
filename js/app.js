@@ -235,6 +235,113 @@ function renderResources() {
     : '<div class="empty-state">No virtual resources yet.<br>Create your first simulated cloud resource.</div>';
 }
 
+
+function openResourceDetails(resource) {
+  let modal = document.getElementById("resourceDetailsModal");
+
+  if (!modal) {
+    modal = document.createElement("div");
+    modal.id = "resourceDetailsModal";
+    modal.className = "resource-modal";
+    modal.innerHTML = `
+      <div class="resource-modal-backdrop" data-close-resource></div>
+      <section class="resource-modal-card" role="dialog"
+               aria-modal="true" aria-labelledby="resourceDetailTitle">
+        <div class="resource-modal-header">
+          <div>
+            <div class="eyebrow">SAMCLOUD RESOURCE INSPECTOR</div>
+            <h2 id="resourceDetailTitle">Resource details</h2>
+          </div>
+          <button class="resource-modal-close" data-close-resource
+                  aria-label="Close details">×</button>
+        </div>
+        <div id="resourceDetailBody"></div>
+        <div class="resource-modal-footer">
+          <span>SIMULATION ONLY · NO REAL AWS RESOURCE</span>
+          <button class="btn secondary" data-close-resource>Close</button>
+        </div>
+      </section>`;
+    document.body.appendChild(modal);
+
+    modal.addEventListener("click", event => {
+      if (event.target.closest("[data-close-resource]")) {
+        modal.classList.remove("visible");
+      }
+    });
+
+    document.addEventListener("keydown", event => {
+      if (event.key === "Escape") modal.classList.remove("visible");
+    });
+  }
+
+  const config = resource.config || {};
+  const details = [
+    ["Resource name", resource.name],
+    ["Service", resource.type],
+    ["Resource ID", resource.id],
+    ["Region", resource.region],
+    ["Status", resource.status],
+    ["Created", resource.createdAt
+      ? new Date(resource.createdAt).toLocaleString()
+      : "Not available"]
+  ];
+
+  const configRows = Object.entries(config).length
+    ? Object.entries(config).map(([key, value]) => `
+        <div class="resource-detail-row">
+          <span>${escapeHTML(key.replace(/([A-Z])/g, " $1"))}</span>
+          <strong>${escapeHTML(value)}</strong>
+        </div>`).join("")
+    : '<p class="muted">No additional configuration saved.</p>';
+
+  $("resourceDetailTitle").textContent =
+    (Cloud.icons[resource.type] || "☁") + " " + resource.name;
+
+  $("resourceDetailBody").innerHTML = `
+    <div class="resource-detail-status">
+      <span class="status-dot"></span>
+      ${escapeHTML(resource.status)}
+      <span>DEMO RESOURCE</span>
+    </div>
+    <h3>Resource information</h3>
+    <div class="resource-detail-list">
+      ${details.map(([key, value]) => `
+        <div class="resource-detail-row">
+          <span>${escapeHTML(key)}</span>
+          <strong>${escapeHTML(value)}</strong>
+        </div>`).join("")}
+    </div>
+    <h3 class="resource-config-heading">Configuration</h3>
+    <div class="resource-detail-list">${configRows}</div>
+    <div class="resource-detail-notice">
+      This is a locally stored educational resource.
+      Its status and configuration do not represent a live AWS service.
+    </div>
+    <button class="btn primary full" id="copyResourceDetails">
+      Copy resource details
+    </button>
+  `;
+
+  $("copyResourceDetails").addEventListener("click", async () => {
+    const text = [
+      "SAMCLOUD SIMULATED RESOURCE",
+      ...details.map(([key, value]) => key + ": " + value),
+      "Configuration:",
+      ...Object.entries(config).map(([key, value]) => key + ": " + value),
+      "SIMULATION ONLY"
+    ].join("\\n");
+
+    try {
+      await navigator.clipboard.writeText(text);
+      showToast("Resource details copied!");
+    } catch {
+      showToast("Clipboard unavailable. You can inspect the details here.");
+    }
+  });
+
+  modal.classList.add("visible");
+}
+
 $("resourceList").addEventListener("click", event => {
   const remove = event.target.closest(".delete-resource");
   const inspect = event.target.closest(".inspect-resource");
@@ -248,9 +355,7 @@ $("resourceList").addEventListener("click", event => {
 
   if (inspect) {
     const r = Store.resources().find(x => x.id === inspect.dataset.id);
-    if (r) {
-      showToast(r.name + " · " + JSON.stringify(r.config));
-    }
+    if (r) openResourceDetails(r);
   }
 });
 
