@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#071426">
+  <meta name="description" content="Learn AWS from zero to professional through interactive lessons and a simulated cloud console by SAMCLOUD.">
+  <title>AWS Zero to Professional | SAMCLOUD</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<div class="app-shell">
+
+  <aside class="sidebar" id="sidebar">
+    <a class="brand" href="#home" data-page="home">
+      <span class="brand-icon">☁</span>
+      <span>
+        <strong>SAMCLOUD</strong>
+        <small>LEARNING PLATFORM</small>
+      </span>
+    </a>
+
+    <div class="sidebar-label">WORKSPACE</div>
+
+    <nav class="navigation">
+      <button class="nav-item active" data-page="home">⌂ <span>Overview</span></button>
+      <button class="nav-item" data-page="academy">▤ <span>AWS Academy</span></button>
+      <button class="nav-item" data-page="services">◈ <span>Service Library</span></button>
+      <button class="nav-item" data-page="simulator">▣ <span>Cloud Simulator</span></button>
+      <button class="nav-item" data-page="architecture">⌘ <span>Architecture Lab</span></button>
+      <button class="nav-item" data-page="monitoring">◷ <span>Monitoring</span></button>
+      <button class="nav-item" data-page="quiz">✧ <span>Quiz Center</span></button>
+      <button class="nav-item" data-page="glossary">≡ <span>Glossary</span></button>
+    </nav>
+
+    <div class="sidebar-bottom">
+      <div class="demo-notice">
+        <span class="status-dot"></span>
+        DEMO ENVIRONMENT
+        <small>Virtual resources only</small>
+      </div>
+      <small>Built by SAMCLOUD</small>
+      <small>Version 1.0.0</small>
+    </div>
+  </aside>
+
+  <main class="main-content">
+
+    <header class="topbar">
+      <button class="menu-toggle" id="menuToggle">☰</button>
+      <div class="breadcrumb">SAMCLOUD / <span id="pageName">Overview</span></div>
+      <div class="top-actions">
+        <span class="demo-pill">● SIMULATION MODE</span>
+        <span class="avatar">SK</span>
+      </div>
+    </header>
+
+    <div class="page-container">
+
+      <section class="page active" id="home">
+        <div class="hero">
+          <div class="hero-content">
+            <div class="eyebrow">CLOUD ENGINEERING EDUCATION</div>
+            <h1>Master the Cloud.<br><span>Build Your Future.</span></h1>
+            <p>Start with zero AWS knowledge. Learn cloud fundamentals, explore essential services and build your own virtual cloud infrastructure.</p>
+            <div class="hero-buttons">
+              <button class="btn primary" data-page="academy">Start Learning →</button>
+              <button class="btn secondary" data-page="simulator">Open Cloud Lab</button>
+            </div>
+          </div>
+          <div class="hero-art">
+            <div class="orbit orbit-one"></div>
+            <div class="orbit orbit-two"></div>
+            <div class="cloud-icon">☁</div>
+            <div class="orbit-label">CLOUD INFRASTRUCTURE</div>
+          </div>
+        </div>
+
+        <div class="section-heading">
+          <div>
+            <div class="eyebrow">YOUR WORKSPACE</div>
+            <h2>Learning Dashboard</h2>
+          </div>
+          <span class="muted">Your progress is saved in this browser</span>
+        </div>
+
+        <div class="stats-grid">
+          <div class="stat-card">
+            <span>📚</span>
+            <small>Lessons completed</small>
+            <strong id="completedCount">0</strong>
+          </div>
+          <div class="stat-card">
+            <span>🎯</span>
+            <small>Learning progress</small>
+            <strong id="progressPercent">0%</strong>
+          </div>
+          <div class="stat-card">
+            <span>☁</span>
+            <small>Virtual resources</small>
+            <strong id="resourceCount">0</strong>
+          </div>
+          <div class="stat-card">
+            <span>🏆</span>
+            <small>Quiz best score</small>
+            <strong id="bestScore">0%</strong>
+          </div>
+        </div>
+
+        <div class="content-grid">
+          <div class="panel">
+            <div class="panel-heading">
+              <h3>Learning Progress</h3>
+              <span class="muted" id="progressLabel">0 of 12 modules</span>
+            </div>
+            <div class="progress-track"><div id="progressBar"></div></div>
+            <div id="moduleProgress" class="module-progress"></div>
+          </div>
+
+          <div class="panel">
+            <div class="panel-heading"><h3>Quick Access</h3></div>
+            <button class="quick-link" data-page="academy">📖 <span>AWS learning academy</span> →</button>
+            <button class="quick-link" data-page="services">◈ <span>Explore AWS services</span> →</button>
+            <button class="quick-link" data-page="simulator">▣ <span>Launch cloud simulator</span> →</button>
+            <button class="quick-link" data-page="quiz">✧ <span>Test your knowledge</span> →</button>
+          </div>
+        </div>
+
+        <div class="panel welcome-panel">
+          <div>
+            <div class="eyebrow">YOUR LEARNING JOURNEY</div>
+            <h3>Understand. Experiment. Improve.</h3>
+            <p>Learn how cloud infrastructure works, then practise your knowledge using simulated AWS resources.</p>
+          </div>
+          <span class="welcome-icon">✦</span>
+        </div>
+      </section>
+
+      <section class="page" id="academy">
+        <div class="page-intro">
+          <div class="eyebrow">STRUCTURED LEARNING</div>
+          <h1>AWS Learning Academy</h1>
+          <p>Start with cloud fundamentals and gradually understand professional cloud infrastructure.</p>
+        </div>
+        <div class="search-wrap">
+          <input id="lessonSearch" placeholder="Search lessons, AWS concepts and topics...">
+        </div>
+        <div id="lessonList" class="lesson-grid"></div>
+      </section>
+
+      <section class="page" id="lesson">
+        <button class="back-button" data-page="academy">← Back to Academy</button>
+        <div id="lessonContent"></div>
+      </section>
+
+      <section class="page" id="services">
+        <div class="page-intro">
+          <div class="eyebrow">AWS KNOWLEDGE BASE</div>
+          <h1>Service Library</h1>
+          <p>Understand the purpose, features and relationships of important cloud services.</p>
+        </div>
+        <div class="search-wrap">
+          <input id="serviceSearch" placeholder="Search EC2, S3, VPC, IAM...">
+        </div>
+        <div id="serviceList" class="service-grid"></div>
+      </section>
+
+      <section class="page" id="simulator">
+        <div class="page-intro">
+          <div class="eyebrow">INTERACTIVE CLOUD LAB</div>
+          <h1>Cloud Simulator</h1>
+          <p>Configure virtual cloud resources and experiment with their relationships.</p>
+        </div>
+
+        <div class="sim-warning">
+          <strong>⚠ Educational simulation only</strong>
+          <span>Resources created here are fictional browser data. No real AWS services are accessed or launched.</span>
+        </div>
+
+        <div class="sim-layout">
+          <div class="panel">
+            <h3>Create a virtual resource</h3>
+            <label for="resourceType">Service</label>
+            <select id="resourceType">
+              <option value="EC2">EC2 — Virtual server</option>
+              <option value="S3">S3 — Object storage</option>
+              <option value="VPC">VPC — Virtual network</option>
+              <option value="RDS">RDS — Relational database</option>
+              <option value="Lambda">Lambda — Serverless function</option>
+              <option value="CloudFront">CloudFront — Content delivery</option>
+              <option value="Route53">Route 53 — DNS</option>
+              <option value="IAM">IAM — Access management</option>
+              <option value="CloudWatch">CloudWatch — Monitoring</option>
+              <option value="DynamoDB">DynamoDB — NoSQL database</option>
+              <option value="EBS">EBS — Block storage</option>
+              <option value="ELB">Load Balancer — Traffic distribution</option>
+            </select>
+
+            <label for="resourceName">Resource name</label>
+            <input id="resourceName" placeholder="e.g. my-first-server" maxlength="40">
+
+            <div id="resourceOptions"></div>
+
+            <label for="resourceRegion">Simulated region</label>
+            <select id="resourceRegion">
+              <option value="ap-south-1">Asia Pacific — Mumbai</option>
+              <option value="us-east-1">US East — N. Virginia</option>
+              <option value="eu-west-1">Europe — Ireland</option>
+              <option value="ap-southeast-1">Asia Pacific — Singapore</option>
+            </select>
+
+            <button class="btn primary full" id="createResource">＋ Create simulated resource</button>
+            <p class="muted tiny">No AWS account, credentials or billing details required.</p>
+          </div>
+
+          <div class="panel">
+            <div class="panel-heading">
+              <h3>Your virtual resources</h3>
+              <span class="muted" id="resourceTotal">0 resources</span>
+            </div>
+            <div id="resourceList" class="resource-list"></div>
+            <button class="btn danger-outline" id="clearResources">Clear all demo resources</button>
+          </div>
+        </div>
+      </section>
+
+      <section class="page" id="architecture">
+        <div class="page-intro">
+          <div class="eyebrow">INFRASTRUCTURE DESIGN</div>
+          <h1>Architecture Lab</h1>
+          <p>Explore how simulated services work together to create a cloud application.</p>
+        </div>
+        <div class="panel">
+          <h3>Demo web application architecture</h3>
+          <div class="architecture-flow" id="architectureFlow"></div>
+          <button class="btn primary" id="validateArchitecture">Validate my architecture</button>
+          <div id="architectureResult"></div>
+        </div>
+        <div class="panel">
+          <h3>Connection guide</h3>
+          <p class="muted">Create the resources in the simulator first. This lab checks whether the required resource types exist. It does not establish real network connections.</p>
+          <div id="connectionChecklist"></div>
+        </div>
+      </section>
+
+      <section class="page" id="monitoring">
+        <div class="page-intro">
+          <div class="eyebrow">OPERATIONS CENTER</div>
+          <h1>Monitoring Dashboard</h1>
+          <p>Explore generated metrics and operational status for your virtual resources.</p>
+        </div>
+        <div class="sim-warning">
+          These are educational sample metrics, not measurements from real servers.
+        </div>
+        <div id="monitoringContent"></div>
+      </section>
+
+      <section class="page" id="quiz">
+        <div class="page-intro">
+          <div class="eyebrow">KNOWLEDGE ASSESSMENT</div>
+          <h1>Quiz Center</h1>
+          <p>Test your understanding of cloud computing and AWS concepts.</p>
+        </div>
+        <div id="quizContent"></div>
+      </section>
+
+      <section class="page" id="glossary">
+        <div class="page-intro">
+          <div class="eyebrow">TECHNICAL REFERENCE</div>
+          <h1>Cloud Glossary</h1>
+          <p>Learn the meaning of important cloud and infrastructure terminology.</p>
+        </div>
+        <div id="glossaryContent"></div>
+      </section>
+
+    </div>
+
+    <footer>
+      <strong>SAMCLOUD</strong> · AWS Zero to Professional
+      <span>Independent educational simulation · Not affiliated with AWS</span>
+    </footer>
+  </main>
+</div>
+
+<div id="toast" class="toast"></div>
+<script src="js/data/lessons.js"></script>
+<script src="js/core/storage.js"></script>
+<script src="js/simulator/cloud.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>
